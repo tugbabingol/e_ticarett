@@ -1,9 +1,11 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:e_ticarett/data/data.dart';
-import 'sign_up_screen.dart';
+import 'package:e_ticarett/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../data/data.dart';
 import '../utils/colors.dart';
+
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -15,9 +17,11 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-      child: Column(
+    return  Column(
+      children: [
+        Expanded(child: SingleChildScrollView(
+          padding:  EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+          child: Column(
         children: [
           AppBar(
             title: const Text(
@@ -91,9 +95,7 @@ class _CartScreenState extends State<CartScreen> {
               );
             },
           ),
-          SizedBox(
-            height: 165,
-          ),
+          
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -122,6 +124,9 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ],
       ),
+        ),),
+      ],
     );
+    
   }
 }
