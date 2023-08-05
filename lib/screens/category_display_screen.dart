@@ -3,6 +3,8 @@ import 'package:e_ticarett/data/data.dart';
 import 'package:e_ticarett/widgets/top_container.dart';
 import 'package:flutter/material.dart';
 
+import 'category_detail_page.dart';
+
 class CategoryDisplayScreen extends StatefulWidget {
   const CategoryDisplayScreen({super.key});
 
@@ -26,64 +28,78 @@ class _CategoryDisplayScreenState extends State<CategoryDisplayScreen> {
               shrinkWrap: true,
               itemCount: categories.length,
               itemBuilder: (context, index) {
-                return Container(
-                  width: MediaQuery.of(context).size.width * 0.80,
-                  height: 170,
-                  margin: const EdgeInsets.only(
-                    bottom: 25,
-                    left: 10.0,
-                    right: 10.0,
-                  ),
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: CachedNetworkImageProvider(
-                        categories[index].thumbnailImage,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(20.0)
-                  ),
-                  foregroundDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withOpacity(0.2),
-                        Colors.transparent,
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.center
-                    ),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        left: 10,
-                        bottom: 10,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              categories[index].categoryName,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text("${categories[index].productCount} Products",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                );
+                return GestureDetector(
+  onTap: () {
+    // Düğmeye tıklandığında yapılacak işlemler buraya gelecek
+    // Örneğin, ilgili kategoriye ait yeni bir sayfaya yönlendirebilirsiniz.
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CategoryDetailPage(category: categories[index]),
+      ),
+    );
+  },
+  child: Container(
+    width: MediaQuery.of(context).size.width * 0.80,
+    height: 170,
+    margin: const EdgeInsets.only(
+      bottom: 25,
+      left: 10.0,
+      right: 10.0,
+    ),
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: CachedNetworkImageProvider(
+          categories[index].thumbnailImage,
+        ),
+        fit: BoxFit.cover,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    foregroundDecoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20.0),
+      gradient: LinearGradient(
+        colors: [
+          Colors.black.withOpacity(0.2),
+          Colors.transparent,
+        ],
+        begin: Alignment.bottomCenter,
+        end: Alignment.center,
+      ),
+    ),
+    child: Stack(
+      children: [
+        Positioned(
+          left: 10,
+          bottom: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                categories[index].categoryName,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "${categories[index].productCount} Products",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
               },
             )
           ],
